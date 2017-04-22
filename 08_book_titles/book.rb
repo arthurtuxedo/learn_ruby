@@ -1,18 +1,17 @@
 class Book
-attr_reader :title
+  attr_reader :title
   def initialize
     @title = title
   end
 
   def title=(new_title)
     words = new_title.split(" ")
-    first_word = words[0].object_id
-    @title = words.map { |word| capitalize_word(word, first_word) }.join(" ")
+    @title = words.each_with_index.map { |word, index| capitalize_word(word, index==0) }.join(" ")
   end
 
   def capitalize_word(word, first_word)
     exceptions = ["the","a","an","and","in","to","of"]
-    if !exceptions.index(word) || word.object_id == first_word
+    if !exceptions.index(word) || first_word
       word.capitalize
     else
       word
